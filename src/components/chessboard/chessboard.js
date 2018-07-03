@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      chessGame: null, // the game logic class
+      chessGame: null, // the game logic class. Always null on init
       availableMoves: {}, // key/value obj of available moves
       selectedIndex: -1, // the currently selected square index
       squareStyle: { // Square style - values will be reset whenever window is resized
@@ -45,7 +45,7 @@ export default {
     }
   },
   watch: {
-    /** Watch the PGN property so that the game can receive new moves from outside the component */
+    /** TODO: Watch the PGN property so that the game can receive new moves from outside the component */
     'pgn': function (newVal, oldVal) {
       this.syncToPgn(newVal)
     },
@@ -59,7 +59,7 @@ export default {
     }
   },
   created () {
-    // Initialize a new game for the provided pgn and side properties
+    // Initialize a new game for the provided pgn if not null and side properties
     this.chessGame = new ChessGame(this.pgn, this.side)
   },
   mounted () {
@@ -97,7 +97,7 @@ export default {
       return (this.availableMoves[index] === true)
     },
 
-    /** Recieve a new pgn, and sync the displayed board to it */
+    /** TODO: Recieve a new pgn, and sync the displayed board to it */
     syncToPgn (newPgn) {
       this.selectedIndex = -1
       this.availableMoves = {}

@@ -1,14 +1,14 @@
 import Chess from 'chess.js'
 
 /**
- * Chess Game Manager Class.
- * Manage game-state and provide helper methods for converting the game to a 1d array
+* Parrot Chess Helpers
  */
 export default class ChessGame {
   /** Contructor - Initialize a new game, optionally with the provided pgn record */
   constructor (pgn = undefined, side = 'w') {
     this.game = Chess()
 
+     /** TODO: Set up PGN compatibility! */
     if (pgn) {
       this.game.load_pgn(pgn)
     }
@@ -16,7 +16,7 @@ export default class ChessGame {
     this.setSide(side)
   }
 
-  /** Set the reversed memeber based on the side ('w' or 'b') */
+  /** Set the reversed memeber based on the side ('white' or 'black') */
   setSide (side) {
     this.reversed = (side === 'b')
   }
@@ -36,7 +36,7 @@ export default class ChessGame {
     return this.game.pgn()
   }
 
-  /** Get the verbose history for the current game */
+  /** Get the history for the current game */
   getHistory () {
     return this.game.history({ verbose: true })
   }
@@ -53,7 +53,7 @@ export default class ChessGame {
     }
   }
 
-  /** Convert the 2d board array into a 1d array with unique ids */
+  /** Convert the 2d board into array with unique ids */
   transformBoardToArray (board) {
     const boardArray = []
     for (let i = 0; i < board.length; i++) {
@@ -79,7 +79,7 @@ export default class ChessGame {
     })
   }
 
-  // Get all available moves for a given index
+  // Get all available moves for parrots within a given index
   getAvailableMoves (index) {
     const moves = this.game.moves({
       square: this.getPositionStringForIndex(index),
@@ -112,7 +112,7 @@ export default class ChessGame {
     }
   }
 
-  /** Get a position string, eg a1, from an array index */
+  /** Get a position string from an array index */
   getPositionStringForIndex (index) {
     let { row, column } = this.getCoordinates(index)
     const number = Math.abs(row - 7) + 1
@@ -128,7 +128,6 @@ export default class ChessGame {
     return index
   }
 
-  /** Get grid coordinates, from given position string, eg a1 */
   getCoordinatesForPositionString (positionString = 'a1') {
     let column = positionString.toLowerCase().charCodeAt(0) - 97
     let row = Number.parseInt(positionString[1]) - 1

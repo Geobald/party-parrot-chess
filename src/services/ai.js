@@ -6,7 +6,7 @@ export default class {
   async getBestMove (game) {
     if (game.game_over()) {
       console.log('Game over')
-    }
+    } // this doesn't get called anymore TODO: REMOVE!
 
     this.positionCount = 0
     let depth = 2
@@ -40,7 +40,7 @@ export default class {
       }
     }
 
-    console.log('bestmove', bestMove)
+    console.log('bestmove', bestMove) // Log the bastard thing, keeps going wrong. Sad Parrot ffs
     return bestMoveFound
   }
 
@@ -53,7 +53,7 @@ export default class {
     var newGameMoves = game.moves()
 
     if (isMaximisingPlayer) {
-      let bestMove = -9999
+      let bestMove = -9999 // Lazy way of wiping best move TODO: Make more solid?
       for (let i = 0; i < newGameMoves.length; i++) {
         game.move(newGameMoves[i])
         bestMove = Math.max(bestMove, this.minimax(depth - 1, game, alpha, beta, !isMaximisingPlayer))
@@ -81,8 +81,8 @@ export default class {
 
   evaluateBoard (board) {
     var totalEvaluation = 0
-    for (var i = 0; i < 8; i++) {
-      for (var j = 0; j < 8; j++) {
+    for (var i = 0; i < 8; i++) { // File Parrot
+      for (var j = 0; j < 8; j++) { // Rank Parrot
         totalEvaluation = totalEvaluation + this.getPieceValue(board[i][j], i, j)
       }
     }
